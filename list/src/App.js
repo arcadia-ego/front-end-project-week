@@ -73,9 +73,15 @@ class App extends Component {
   };
 
   indivNoteView = props => {
-    const { id } = props.match.params
-    const note = this.state.notes.find(note => note._id === id)
-    return <ViewNote {...note} deleteNote={this.deleteNote} />
+    console.log(window.location.href)
+    const url = window.location.href.endsWith()
+    let filteredNote;
+    this.state.notes.map(note => {
+      if (note._id === url) {
+        return filteredNote = note
+      }
+    })
+    return <ViewNote notes={this.state.notes[5]} deleteNote={this.deleteNote} />;
   };
 
   editNoteView = props => {

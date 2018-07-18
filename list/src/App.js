@@ -101,7 +101,7 @@ class App extends Component {
 
   deleteNote = id => {
     console.log(id)
-    const { notes, newNote } = this.state;
+    const { notes, newNote, idRoute } = this.state;
     const delArr = notes.filter(note => note.id !== id);
     axios.delete(`https://frozen-hamlet-56840.herokuapp.com/notes/${idRoute}`, delArr.id )
     this.setState({ notes: delArr });

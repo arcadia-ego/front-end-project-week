@@ -56,8 +56,12 @@ class App extends Component {
 
   editNote = id => {
     const { notes, newNote } = this.state;
+    console.log("ID EDIT NOTE", id);
     console.log(this.state);
     const newArr = notes.map(note => (note.id === id ? newNote : note));
+    console.log("NEW ARR EDIT", newArr)
+    console.log("NEWNOTE BEFORE AXIOS", newNote);
+    axios.put(`http://localhost:5000/notes/${id}`, newNote);
     this.setState({ notes: newArr });
   };
 
@@ -74,20 +78,25 @@ class App extends Component {
 
   indivNoteView = props => {
     console.log(window.location.href)
-    const url = window.location.href.endsWith()
+    // const url = window.location.href.endsWith()
+    // console.log("URL", url);
     let filteredNote;
     this.state.notes.map(note => {
-      if (note._id === url) {
+      console.log("NOTE IN APP MAP", note);
+      if (window.location.href.endsWith(note._id)) {
         return filteredNote = note
       }
+      console.log("FILTERED NOTE", filteredNote);
     })
-    return <ViewNote notes={this.state.notes[5]} deleteNote={this.deleteNote} />;
+    return <ViewNote notes={filteredNote} deleteNote={this.deleteNote} />;
   };
 
   editNoteView = props => {
+    console.log("PROPS EDIT NOTE VIEW", props);
     const filteredNotes = this.state.notes.filter(
       note => +props.match.params.id !== note.id
     );
+    console.log("FILTERED NOTES EDIT VIEW", filteredNotes);
     return (
       <EditNote
         note={filteredNotes[0]}
@@ -102,8 +111,11 @@ class App extends Component {
   deleteNote = id => {
     console.log(id)
     const { notes, newNote, idRoute } = this.state;
-    const delArr = notes.filter(note => note.id !== id);
-    axios.delete(`https://frozen-hamlet-56840.herokuapp.com/notes/${idRoute}`, delArr.id )
+    console.log("NOTES IN DELETENOTE", notes);
+    const delArr = notes.filter(note => note._id === id);
+    // axios.delete(`https://frozen-hamlet-56840.herokuapp.com/notes/${idRoute}`, delArr.id )
+    console.log("ID???", delArr);
+    axios.delete(`http://localhost:5000/notes/${id}`, delArr.id )
     this.setState({ notes: delArr });
     console.log(delArr);
   };
@@ -137,7 +149,8 @@ class App extends Component {
     try {
       let idRoute = localStorage.getItem("user._id");
       const response = await axios.get(
-        `https://frozen-hamlet-56840.herokuapp.com/notes/${idRoute}`
+        // `https://frozen-hamlet-56840.herokuapp.com/notes/${idRoute}`
+        `http://localhost:5000/notes/${idRoute}`
       );
       console.log(response);
       this.setState({ notes: response.data.notes });

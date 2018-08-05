@@ -44,7 +44,8 @@ import axios from "axios";
   submitHandler = event => {
     event.preventDefault();
     axios
-      .post("https://frozen-hamlet-56840.herokuapp.com/register", this.state)
+      // .post("https://frozen-hamlet-56840.herokuapp.com/register", this.state)
+      .post("http://localhost:5000/register", this.state)
       .then(response => {
         console.log("response", response.data);
         this.props.onSignin(response.data);

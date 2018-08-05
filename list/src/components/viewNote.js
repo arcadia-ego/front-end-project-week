@@ -4,7 +4,7 @@ import "./viewNote.css";
 
 export const ViewNote = props => {
   // display a maximized version of the title and content of note clicked
-  console.log(props._id);
+  console.log("PROPS", props);
   const btn = document.getElementsByClassName("modalButton");
   const confirmModal = document.getElementsByClassName("confirmModal");
   window.onclick = function(event) {
@@ -13,9 +13,14 @@ export const ViewNote = props => {
     }
   };
   console.log(confirmModal);
+
+ const content = props.notes && props.notes.body ? props.notes.body : null;
+ const title = props.notes && props.notes.title ? props.notes.title : null;
+
+
   return (
     <div>
-      {/* <div className="updateButtons">
+      <div className="updateButtons">
         <Link to={`/editnote/${props._id}`}>
           <button> Edit Note </button>
         </Link>
@@ -43,13 +48,13 @@ export const ViewNote = props => {
             className="sideButton"
             onClick={() => (confirmModal[0].style.display = "none")}
           >
-            {" "}
             Cancel{" "}
           </button>
         </div>
-      </div> */}
-      <h1> {props.notes.title} </h1>
-      <div>{props.notes.body}</div>
+      </div>
+      <h1> {title} </h1>
+      <h1> {console.log("PROPS", props)} </h1>
+      <div>{content}</div>
     </div>
   );
 };
